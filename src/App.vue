@@ -1,16 +1,17 @@
 <template>
   <div id="app">
-    <mu-appbar :zDepth="0"  class="example-appbar" :class="{'nav-hide': !open}">
-      <mu-icon-button @click="toggleNav" icon="menu" slot="left"/>
-      <h2  @click="toIndex" slot="left">首页</h2>
-      <mu-icon-button href="https://github.com/museui/muse-ui" icon="github_circle" style="margin-left:4em;">
-      </mu-icon-button>
-    </mu-appbar>
     <app-side @change="handleMenuChange" @close="toggleNav" :open="open" :docked="docked" />
-    <div class="example-content" :class="{'nav-hide': !open}">
-      <transition name="fade"  mode="out-in">
-        <router-view></router-view>
-      </transition>
+    <div class="app-right" :class="{'app-right-open' : open}">
+      <mu-appbar :zDepth="0" title="首页" class="example-appbar" :class="{'nav-hide': !open}">
+        <mu-icon-button icon='menu' slot="left" @click="toggleNav"/>
+        <mu-flat-button color="white" label="flat Button" slot="right"/>
+      </mu-appbar>
+      
+      <div class="example-content" :class="{'nav-hide': !open}">
+        <transition name="fade"  mode="out-in">
+          <router-view></router-view>
+        </transition>
+      </div>
     </div>
   </div>
 </template>
@@ -94,34 +95,22 @@ function isDesktop () {
 
 <style lang="less">
 @import "../src/styles/import.less";
-.example-appbar{
-  position: fixed;
-  left: 256px;
-  right: 0;
-  top: 0;
-  width: auto;
-  transition: all .45s @easeOutFunction;
-  &.nav-hide {
-    left: 0;
-  }
+.app-right{
+  transition: all .35s;
+
+}
+.app-right-open{
+  margin-left: 256px;
+}
+.app-right-close{
+  margin-left: 0px;
 }
 
-.example-content{
-  padding-top: 56px;
-  padding-left: 256px;
-  transition: all .45s @easeOutFunction;
-  &.nav-hide {
-    padding-left: 0;
-  }
-}
 
-.content-wrapper{
-  padding: 48px 72px;
-}
 
 @media (min-width: 480px) {
   .example-content{
-    padding-top: 64px;
+    padding: 10px;
   }
 }
 
@@ -134,6 +123,9 @@ function isDesktop () {
   }
   .content-wrapper {
     padding: 24px 36px;
+  }
+  .app-right{
+    margin-left: 0px;
   }
 }
 

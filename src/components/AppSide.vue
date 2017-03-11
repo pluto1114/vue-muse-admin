@@ -1,15 +1,36 @@
 <template>
   <div class="app-side">
   	
-  	<mu-drawer :open="open"  @close="toggle()">
+  	<mu-drawer :open="open">
   	  <mu-appbar class="exmaples-nav-appbar" :zDepth="0">
-	    <a class="exmaples-appbar-title" href="/" style="display:inline-block;">播放历史</a>
-	    <mu-badge content="2017" class="exmaples-version" secondary/>
-	  </mu-appbar>
-	  <mu-divider/>
-      <mu-list>
-        <mu-list-item v-for="(x,index) of hisSongArr" :title="x.songname" titleClass="my-title" @click="handleClick(index)"/>
-        <mu-list-item  @click="handleClose" title="关闭"/>
+  	    <a class="exmaples-appbar-title" href="/" style="display:inline-block;">播放历史</a>
+  	    <mu-badge content="2017" class="exmaples-version" secondary/>
+  	  </mu-appbar>
+  	  <mu-divider/>
+      <mu-list @change="handleMenuChange" :value="menuVal">
+        <mu-list-item :title="'getStarted'" toggleNested>
+          <mu-list-item value="#/install" slot="nested" :title="'installation'"/>
+          <mu-list-item value="#/usage" slot="nested" :title="'usage'"/>
+        </mu-list-item>
+        <mu-list-item :title="'customization'" toggleNested>
+          <mu-list-item slot="nested" value="#/theme" :title="'theme'"/>
+          <mu-list-item slot="nested" value="#/colors" :title="'color'"/>
+        </mu-list-item>
+
+        <mu-list-item :title="'component'" toggleNested>
+          <mu-sub-header slot="nested" class="exmaples-nav-sub-header">Material Design</mu-sub-header>
+          <mu-list-item slot="nested" value="#/appbar" title="App Bar"/>
+          <mu-list-item slot="nested" value="#/autoComplete" title="Auto Complete"/>
+         
+          <mu-list-item slot="nested" value="#/pagination" title="Pagination"/>
+          <mu-list-item slot="nested" value="#/picker" title="Picker"/>
+          <mu-list-item slot="nested" value="#/popup" title="Popup"/>
+          <mu-list-item slot="nested" value="#/refreshControl" title="Refresh Control"/>
+        </mu-list-item>
+        <mu-list-item :title="'more'" toggleNested>
+          <mu-list-item slot="nested" :title="'changeLog'" value="#/changeLog"/>
+          <mu-list-item slot="nested" :title="'contributing'" value="#/contributing"/>
+        </mu-list-item>
       </mu-list>
     </mu-drawer> 
   </div>
@@ -22,7 +43,7 @@ export default {
   props: {
     open: {
       type: Boolean,
-      default: true
+      default: false
     },
     docked: {
       type: Boolean,
@@ -31,9 +52,6 @@ export default {
   },
   computed:mapState(['hisSongArr']),
   methods: {
-    handleClose () {
-      this.$emit('close')
-    },
     handleClick(index){
       let song=this.hisSongArr[index];
       this.$router.push(`/player/${song.albumid}/${song.songid}/${song.songmid}`);
