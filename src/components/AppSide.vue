@@ -44,17 +44,21 @@ export default {
     open: {
       type: Boolean,
       default: false
-    },
-    docked: {
-      type: Boolean,
-      default: true
     }
+  },
+  data(){
+    return {
+      menuVal:0
+    } 
   },
   computed:mapState(['hisSongArr']),
   methods: {
     handleClick(index){
       let song=this.hisSongArr[index];
       this.$router.push(`/player/${song.albumid}/${song.songid}/${song.songmid}`);
+    },
+    handleMenuChange(){
+      
     }
   }
 }
