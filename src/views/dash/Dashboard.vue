@@ -1,5 +1,5 @@
 <template>
-  <div class="index tile-body">
+  <div class="">
     <!-- cards -->
     <div class="row cards">
       
@@ -30,9 +30,9 @@
       <mu-flexbox-item class="flex-demo">
         <div id="myEcharts" style="width:100%;height:400px;"></div>
       </mu-flexbox-item>
-      <mu-flexbox-item class="flex-demo">
-        <div id="myEcharts2" style="width:100%;height:400px;"></div>
-      </mu-flexbox-item>
+      
+        <div id="myEcharts2" style="width:500px;height:400px;"></div>
+      
     </mu-flexbox>
 
     <mu-flexbox>
@@ -181,7 +181,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
-@import "../../src/styles/vars.less";
+
 .index{
 	
 }
