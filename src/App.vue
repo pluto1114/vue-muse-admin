@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="app">
     <app-side @change="handleMenuChange" @close="toggleNav" :open="open" :docked="docked" />
     <div class="app-right" :class="{'app-right-open' : open}">
       <mu-appbar :zDepth="0" title="首页" class="example-appbar" :class="{'nav-hide': !open}">

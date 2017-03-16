@@ -4,7 +4,7 @@
 
 	    <div class="media">        
 	      <span class="pull-left">
-	        <i class="fa fa-users media-object"></i>
+	        <i class="fa media-object" :class="icon"></i>
 	      </span>
 
 	      <div class="media-body">
@@ -39,7 +39,7 @@
 <script>
 export default {
   name: 'card',
-  props:['type','title'],
+  props:['type','title','icon'],
   data () {
     return {
     }
