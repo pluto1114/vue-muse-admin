@@ -87,6 +87,9 @@ export default {
               return
             }
           }
+          route.children.forEach((item,index)=>{
+
+          });
         }
       }
     },
