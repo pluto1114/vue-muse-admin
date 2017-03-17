@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="dashboard">
     <!-- cards -->
     <div class="row cards">
       
@@ -49,7 +49,7 @@
 var echarts = require('echarts');
 import Card from '@/components/Card'
 export default {
-  name: 'index',
+  name: 'dashboard',
   data () {
     return {
     }
@@ -182,8 +182,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
 
-.index{
-	
+.dashboard{
+	padding:20px;
 }
 
 </style>

@@ -1,8 +1,8 @@
 <template>
-  <div class="main2">
+  <div class="main">
     <app-side @change="handleMenuChange" @close="toggleNav" :open="open" :docked="docked" />
     <div class="app-right" :class="{'app-right-open' : open}">
-      <mu-appbar :zDepth="0" title="首页" class="example-appbar" :class="{'nav-hide': !open}">
+      <mu-appbar :zDepth="0" :title="title" class="example-appbar" :class="{'nav-hide': !open}">
         <mu-icon-button icon='menu' slot="left" @click="toggleNav"/>
         <mu-flat-button color="white" label="flat Button" slot="right"/>
       </mu-appbar>
@@ -38,10 +38,13 @@ export default {
     }
     window.addEventListener('resize', this.handleResize)
     window.addEventListener('hashchange', () => {
-      // this.setTitle()
+      this.setTitle()
     })
     this.$on("close",()=>{
       this.open=false;
+    })
+    this.$on("menu-change",()=>{
+
     })
     
   },
@@ -66,13 +69,24 @@ export default {
     },
     setTitle () {
       let path = window.location.hash
-      console.log(path)
+    
       if (path && path.length > 1) path = path.substring(1)
+      console.log("path:"+path)  
       for (let i = 0; i < this.routes.length; i++) {
         var route = this.routes[i]
+        // console.log("route.path",route.path)
         if (route.path === path) {
           this.title = path.substring(1) || ''
           return
+        }
+        if(route.children && route.children.length>0){
+          for (let j=0;j<route.children.length;j++) {
+            var subpath=route.children[i].path;
+            if (subpath===path || subpath===path.substring(1)) {
+              this.title = path.substring(1) || ''
+              return
+            }
+          }
         }
       }
     },

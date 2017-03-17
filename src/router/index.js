@@ -6,6 +6,7 @@ import LoginView from '@/views/Login.vue'
 import NotFoundView from '@/views/404.vue'
 
 import DashboardView from '@/views/dash/Dashboard.vue'
+import StoreGoodsView from '@/views/dash/onstore/StoreGoods.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -19,9 +20,13 @@ export default new Router({
         auth: true,
         children: [
 	      	{
-	        	path: '',
-	        	component: DashboardView,
-	        	name: 'Dashboard'
+                path: '',
+                component: DashboardView,
+                name: 'dashboard'
+            },{
+	        	path: 'storeGoods',
+	        	component: StoreGoodsView,
+	        	name: 'storeGoods'
 	      	}
 	    ]
     },

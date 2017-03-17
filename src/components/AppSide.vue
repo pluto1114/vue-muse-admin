@@ -3,22 +3,19 @@
   	
   	<mu-drawer :open="open">
   	  <mu-appbar class="exmaples-nav-appbar" :zDepth="0">
-  	    <a class="exmaples-appbar-title" href="/" style="display:inline-block;">播放历史</a>
+      <router-link to="/" class="exmaples-appbar-title" style="display:inline-block;">主数据平台</router-link>
   	    <mu-badge content="2017" class="exmaples-version" secondary/>
   	  </mu-appbar>
   	  <mu-divider/>
       <mu-list @change="handleMenuChange" :value="menuVal">
-        <mu-list-item :title="'getStarted'" toggleNested>
-          <mu-list-item value="#/install" slot="nested" :title="'installation'"/>
-          <mu-list-item value="#/usage" slot="nested" :title="'usage'"/>
-        </mu-list-item>
-        <mu-list-item :title="'customization'" toggleNested>
-          <mu-list-item slot="nested" value="#/theme" :title="'theme'"/>
-          <mu-list-item slot="nested" value="#/colors" :title="'color'"/>
+        <mu-list-item :title="'在库物资分析'" toggleNested>
+          <mu-icon value="home" slot="left"/>
+          <mu-list-item slot="nested" value="#/storeGoods" :title="'当前库存统计'"/>
+          <mu-list-item slot="nested" value="#/colors" :title="'采购订单分析'"/>
         </mu-list-item>
 
-        <mu-list-item :title="'component'" toggleNested>
-          <mu-sub-header slot="nested" class="exmaples-nav-sub-header">Material Design</mu-sub-header>
+        <mu-list-item :title="'在建物资分析'" toggleNested>
+          <mu-icon value="equalizer" slot="left"/>
           <mu-list-item slot="nested" value="#/appbar" title="App Bar"/>
           <mu-list-item slot="nested" value="#/autoComplete" title="Auto Complete"/>
          
@@ -27,7 +24,8 @@
           <mu-list-item slot="nested" value="#/popup" title="Popup"/>
           <mu-list-item slot="nested" value="#/refreshControl" title="Refresh Control"/>
         </mu-list-item>
-        <mu-list-item :title="'more'" toggleNested>
+        <mu-list-item :title="'历史资源分析'" toggleNested>
+          <mu-icon value="timer" slot="left"/>
           <mu-list-item slot="nested" :title="'changeLog'" value="#/changeLog"/>
           <mu-list-item slot="nested" :title="'contributing'" value="#/contributing"/>
         </mu-list-item>
@@ -51,21 +49,20 @@ export default {
       menuVal:0
     } 
   },
-  computed:mapState(['hisSongArr']),
   methods: {
-    handleClick(index){
-      let song=this.hisSongArr[index];
-      this.$router.push(`/player/${song.albumid}/${song.songid}/${song.songmid}`);
-    },
-    handleMenuChange(){
+    handleMenuChange(val){
+      this.menuVal = val
       
+      window.location.hash = this.menuVal
+      
+      this.$emit('menu-change', val)
     }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style  lang="less">
+<style  lang="less" scoped>
 @import "../../src/styles/import.less";
 .exmaples-drawer{
   box-shadow: none;
@@ -82,5 +79,8 @@ export default {
 
 .my-title{
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.mu-paper-2{
+  box-shadow:none;
 }
 </style>
