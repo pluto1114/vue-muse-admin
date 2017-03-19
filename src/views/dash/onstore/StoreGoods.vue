@@ -25,7 +25,6 @@ export default {
   mounted(){
     console.log(this.moduleA.mm)
     this.$store.dispatch("storeGoods_map").then((resp)=>{
-        console.log(resp.data.itemMap.curValues)
         this.optionMap = {
             title: {
                 text: resp.message,
@@ -75,7 +74,7 @@ export default {
                             show: true
                         }
                     },
-                    data:resp.data.itemMap.curValues
+                    data:resp.body.itemMap.curValues
                 }
             ]
         };

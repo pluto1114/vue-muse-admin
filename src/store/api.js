@@ -6,12 +6,30 @@ var querystring = require('querystring');
 Vue.use(VueResource)
 
 
+var debug=true;
+var showStr=false;
 
-export function search () {
-    var p=Vue.http.get("/api/storeGoodsChart/map");
-    console.log("p",p)
+export function api(url,options) {
+    var p={};
+    if(!url) url='/api'
+    var defaultOptions ={
+        'type':'get',
+        'params':{}
+    };
+
+    var opt = Object.assign(defaultOptions, options);
+    if(opt.type==="get"){
+    	p=Vue.http.get(url,{params:opt.params});
+	}else if(opt.type==="post"){
+		p=Vue.http.post(url,opt.params);
+	}
     p.then(resp=>{
-      console.log(resp.data);
+    	if(debug){
+    		console.log(`resp.data from ${url}`,resp.body);
+    	}
+    	if(showStr){
+    		console.log(JSON.stringify(resp));
+    	}
     },resp=>{
       console.log("request error");
     });
