@@ -28,16 +28,14 @@
     <!-- /cards -->
     <mu-flexbox>
       <mu-flexbox-item class="flex-demo">
-        <div id="myEcharts" style="width:100%;height:400px;"></div>
+        <Chart width="100%" height="400px" :option="option1"></Chart>
       </mu-flexbox-item>
-      
-        <div id="myEcharts2" style="width:500px;height:400px;"></div>
-      
+      <Chart width="500px" height="400px" :option="option2"></Chart>
     </mu-flexbox>
 
     <mu-flexbox>
       <mu-flexbox-item class="flex-demo">
-        <div id="myEcharts3" style="width:100%;height:400px;"></div>
+        <Chart width="100%" height="400px" :option="option3"></Chart>
       </mu-flexbox-item>
     </mu-flexbox>       
     
@@ -46,18 +44,13 @@
 </template>
 
 <script>
-var echarts = require('echarts');
 import Card from '@/components/Card'
+import Chart from '@/components/Chart'
 export default {
   name: 'dashboard',
   data () {
     return {
-    }
-  },
-  mounted(){
-  	
-    var myChart = echarts.init(document.getElementById('myEcharts'));
-    myChart.setOption({
+      option1:{
         title: {
             text: '堆叠区域图'
         },
@@ -133,9 +126,8 @@ export default {
                 data:[820, 932, 901, 934, 1290, 1330, 1320]
             }
         ]
-    })
-    var myChart2 = echarts.init(document.getElementById('myEcharts2'));
-  	myChart2.setOption({
+      },
+      option2:{
         title: { text: '饼图示例' },
         series : [
             {
@@ -151,10 +143,8 @@ export default {
                 ]
             }
         ]
-    })
-
-    var myChart3 = echarts.init(document.getElementById('myEcharts3'));
-    myChart3.setOption({
+      },
+      option3:{
         title: { text: '示例' },
         tooltip: {},
         xAxis: {
@@ -166,7 +156,11 @@ export default {
             type: 'bar',
             data: [5, 20, 36, 10, 10, 20]
         }]
-    });
+      }
+    }
+  },
+  mounted(){
+  	
   },
   methods:{
   	handleHover(){
@@ -174,7 +168,7 @@ export default {
   	}
   },
   components:{
-  	Card
+  	Card,Chart
   }
 }
 </script>

@@ -3,7 +3,7 @@
     
     <mu-sub-header>阳光</mu-sub-header>
     <mu-content-block>
-    散落在指尖的阳光，我试着轻轻抓住光影的踪迹，它却在眉宇间投下一片淡淡的阴影。调皮的阳光掀动了四月的心帘，温暖如约的歌声渐起。似乎在诉说着，我也可以在漆黑的角落里，找到阴影背后的阳光，找到阳光与阴影奏出和谐的旋律。我要用一颗敏感赤诚的心迎接每一缕滑过指尖的阳光！
+    <Chart width="100%" height="650px" :option="optionMap"></Chart>
     </mu-content-block> 
     
 
@@ -11,25 +11,89 @@
 </template>
 
 <script>
-var echarts = require('echarts');
-
+import Chart from '@/components/Chart'
+import { mapState } from 'vuex';
+import {search} from '@/store/api'
 export default {
-  name: 'index',
+  name: 'storegoods',
   data () {
     return {
+        optionMap:{}
     }
   },
+  computed:mapState(['moduleA']),
   mounted(){
-  	
+    console.log(this.moduleA.mm)
+    this.$store.dispatch("storeGoods_map").then((resp)=>{
+        console.log(resp.data.itemMap.curValues)
+        this.optionMap = {
+            title: {
+                text: resp.message,
+                //subtext: '纯属虚构',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data:['当前量']
+            },
+            visualMap: {
+                min: 0,
+                max: 30000000,
+                left: 'left',
+                top: 'bottom',
+                text: ['高','低'],           // 文本，默认为数值文本
+                calculable: true
+            },
+            toolbox: {
+                show: true,
+                orient: 'vertical',
+                left: 'right',
+                top: 'center',
+                feature: {
+                    dataView: {readOnly: false},
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            series: [
+                {
+                    name: '当前量',
+                    type: 'map',
+                    mapType: '内蒙古',
+                    roam: true,
+                    zoom:1.26,
+                    label: {
+                        normal: {
+                            show: true,
+                           
+                        },
+                        emphasis: {
+                            show: true
+                        }
+                    },
+                    data:resp.data.itemMap.curValues
+                }
+            ]
+        };
+    });
+    // search();
+    
     
   },
   methods:{
   	handleHover(){
   		console.log("hover")
-  	}
+  	},
+    randomData() {
+        return Math.round(Math.random()*1000);
+    }
   },
   components:{
-  	
+  	Chart
   }
 }
 </script>
@@ -37,7 +101,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
 
-.index{
+.storegoods{
 	
 }
 

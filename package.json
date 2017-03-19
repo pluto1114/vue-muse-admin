@@ -9,7 +9,6 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "echarts": "^3.4.0",
     "fastclick": "^1.0.6",
     "keycode": "^2.1.7",
     "muse-ui": "^2.0.0-rc.5",

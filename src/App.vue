@@ -15,10 +15,7 @@ export default {
   data () {
     const desktop = isDesktop()
     return {
-      open: desktop,
-      docked: desktop,
-      desktop: desktop,
-      title: ''
+      desktop: desktop
     }
   },
   mounted () {
@@ -47,7 +44,7 @@ function isDesktop () {
 .app-right-close{
   margin-left: 0px;
 }
-
+         
 
 
 @media (min-width: 480px) {

@@ -76,14 +76,14 @@ export default {
         var route = this.routes[i]
         // console.log("route.path",route.path)
         if (route.path === path) {
-          this.title = path.substring(1) || ''
+          this.title = route.description
           return
         }
         if(route.children && route.children.length>0){
           for (let j=0;j<route.children.length;j++) {
             var subpath=route.children[i].path;
-            if (subpath===path || subpath===path.substring(1)) {
-              this.title = path.substring(1) || ''
+            if (path.indexOf(subpath)>0) {
+              this.title = route.children[i].description
               return
             }
           }

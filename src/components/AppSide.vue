@@ -10,7 +10,7 @@
       <mu-list @change="handleMenuChange" :value="menuVal">
         <mu-list-item :title="'在库物资分析'" toggleNested>
           <mu-icon value="home" slot="left"/>
-          <mu-list-item slot="nested" value="#/storeGoods" :title="'当前库存统计'"/>
+          <mu-list-item slot="nested" value="#/onstore/storeGoods" :title="'当前库存统计'"/>
           <mu-list-item slot="nested" value="#/colors" :title="'采购订单分析'"/>
         </mu-list-item>
 
@@ -75,7 +75,12 @@ export default {
 }
 .exmaples-appbar-title{
   color: @secondaryTextColor;
+  text-decoration: none;
+  outline: none;
+  a:hover{color:#cacdd6;}
 }
+
+
 
 .my-title{
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis;

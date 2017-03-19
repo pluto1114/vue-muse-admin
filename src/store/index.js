@@ -1,78 +1,42 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {fetchSongInfo,fetchAlbum,fetchLyric,search} from '../store/api'
+import VueResource from 'vue-resource'
 import _ from 'lodash'
+
+var querystring = require('querystring');
+
+Vue.use(VueResource)
+Vue.http.options.emulateJSON = true;
+
 Vue.use(Vuex)
-const store = new Vuex.Store({
-    state: {
-        hisSongArr: localStorage.hisSongArr ? JSON.parse(localStorage.hisSongArr) : [],
-        lyricArr: [],
-        lrcTimeArr: [],
-        playing:false,
-        audio:new Audio(),
-        currentTime:0,
-        lrcCurIndex:0
-    },
-    getters: {
-        
-    },
-    actions: {
-        FETCH_SONG_LIST(context, word) {
-            let p = search(word);
-            return p;
-        },
-        FETCH_SONG_INFO(context, song_mid) {
-            let p = fetchSongInfo(song_mid);
-            return p;
-        },
-        FETCH_LYRIC(context, music_id) {
-            let p = fetchLyric(music_id);
-            return p;
-        },
-        
-    },
-    mutations: {
-        
-        addHisSong(state, payload) {
-          
-            state.hisSongArr.unshift(payload.song);
-         
-            if (state.hisSongArr.length > 10) {
-                state.hisSongArr = state.hisSongArr.slice(0, 10);
-            }
+const moduleA = {
+  state: {mm:"I'm a mm"},
+  mutations: {},
+  actions: {},
+  getters: {}
+}
 
-            localStorage.hisSongArr = JSON.stringify(state.hisSongArr);
-        },
-       
-        loadLyric(state, payload) {
-            state.lyricArr = payload.lyricArr;
-            state.lrcTimeArr=_.map(state.lyricArr,'time');
-        },
-        play(state){
-            state.playing=true;
-            state.audio.play();
-        },
-        pause(state){
-            state.playing=false;
-            state.audio.pause();
-        },
-        changePlayPos(state,time){
-            state.audio.currentTime=time;
-        },
-        changeCurrentTime(state,currentTime){
-            state.currentTime=currentTime;
-            state.lrcCurIndex=_.sortedIndex(state.lrcTimeArr, currentTime);
-            for (var i = 0; i < state.lyricArr.length; i++) {
-                state.lyricArr[i].selected = false;
-            }
-            if (state.lrcCurIndex > 0) {
-                state.lyricArr[state.lrcCurIndex - 1].selected = true;
-            }
-
-        },
+const onstore = {
+  state: {},
+  mutations: {},
+  actions: {
+    storeGoods_map(context){
+        var p=Vue.http.get("/api/storeGoodsChart/map");
+        p.then(resp=>{
+          console.log(resp.data);
+        },resp=>{
+          console.log("request error");
+        });
+        return p;
     }
+  }
+}
 
-});
-
+const store = new Vuex.Store({
+  modules: {
+    moduleA,
+    onstore
+  }
+})
 
 export default store
