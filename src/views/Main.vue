@@ -152,5 +152,15 @@ function isDesktop () {
 .fade-enter, .fade-leave-active {
   opacity: 0
 }
+.slide-fade-enter-active {
+  transition: all .5s ease;
+}
+.slide-fade-leave-active {
+  transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to{
+  transform: translateX(20px);
+  opacity: 0;
+}
 
 </style>

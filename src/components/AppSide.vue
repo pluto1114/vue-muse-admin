@@ -12,17 +12,22 @@
           <mu-icon value="home" slot="left"/>
           <mu-list-item slot="nested" value="#/onstore/storeGoods" :title="'当前库存统计'"/>
           <mu-list-item slot="nested" value="#/colors" :title="'采购订单分析'"/>
+          <mu-list-item slot="nested" value="#/colors" :title="'入库物资分析'"/>
+          <mu-list-item slot="nested" value="#/colors" :title="'出库物资分析'"/>
+          <mu-list-item slot="nested" value="#/colors" :title="'物资使用分析'"/>
+          <mu-list-item slot="nested" value="#/colors" :title="'物资类型分析'"/>
+          <mu-list-item slot="nested" value="#/colors" :title="'地域物资比较'"/>
+          <mu-list-item slot="nested" value="#/colors" :title="'逻辑库分析'"/>
+          <mu-list-item slot="nested" value="#/colors" :title="'排行榜'"/>
         </mu-list-item>
 
         <mu-list-item :title="'在建物资分析'" toggleNested>
           <mu-icon value="equalizer" slot="left"/>
-          <mu-list-item slot="nested" value="#/appbar" title="App Bar"/>
-          <mu-list-item slot="nested" value="#/autoComplete" title="Auto Complete"/>
+          <mu-list-item slot="nested" value="#/appbar" title="在建项目物资分析"/>
+          <mu-list-item slot="nested" value="#/autoComplete" title="完成项目物资分析"/>
          
-          <mu-list-item slot="nested" value="#/pagination" title="Pagination"/>
-          <mu-list-item slot="nested" value="#/picker" title="Picker"/>
-          <mu-list-item slot="nested" value="#/popup" title="Popup"/>
-          <mu-list-item slot="nested" value="#/refreshControl" title="Refresh Control"/>
+          <mu-list-item slot="nested" value="#/pagination" title="归档项目物资分析"/>
+          <mu-list-item slot="nested" value="#/picker" title="已用物资跟踪"/>
         </mu-list-item>
         <mu-list-item :title="'历史资源分析'" toggleNested>
           <mu-icon value="timer" slot="left"/>

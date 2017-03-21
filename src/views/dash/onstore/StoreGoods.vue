@@ -3,7 +3,7 @@
     
     <mu-sub-header>阳光</mu-sub-header>
     <mu-content-block>
-    <Chart width="100%" height="650px" :option="optionMap"></Chart>
+    <Chart width="100%" height="650px" :option="optionMap" theme='infographic'></Chart>
     </mu-content-block> 
     
 

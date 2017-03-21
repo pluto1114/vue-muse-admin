@@ -8,13 +8,18 @@
 var myChart;
 export default {
   name: 'echarts',
-  props:['width','height','option'],
+  props:['width','height','option','theme'],
   data () {
     return {
     	styleObject: {
 		    width:this.width,
 		    height:this.height
 		  }
+    }
+  },
+  computed:{
+    myTheme(){
+      return this.theme?this.theme:'shine';
     }
   },
   watch:{
@@ -25,7 +30,7 @@ export default {
   },
   methods:{
     fresh(){
-      myChart = echarts.init(this.$el);
+      myChart = echarts.init(this.$el,this.myTheme);
       myChart.setOption(this.option)
     }
   }
