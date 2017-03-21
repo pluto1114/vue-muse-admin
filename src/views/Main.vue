@@ -80,15 +80,11 @@ export default {
           return
         }
         if(route.children && route.children.length>0){
-          for (let j=0;j<route.children.length;j++) {
-            var subpath=route.children[i].path;
-            if (path.indexOf(subpath)>0) {
-              this.title = route.children[i].description
+          route.children.forEach((item,index)=>{
+            if (path.indexOf(item.path)>0) {
+              this.title = item.description
               return
             }
-          }
-          route.children.forEach((item,index)=>{
-
           });
         }
       }

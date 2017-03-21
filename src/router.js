@@ -25,12 +25,7 @@ export default new Router({
 	        	component: Dashboard,
 	        	name: 'Dashboard',
                 description: '控制面板'
-	      	},{
-                path: 'storeGoods',
-                component: StoreGoods,
-                name: 'storeGoods',
-                description: '当前库存统计'
-            }
+	      	}
 	    ]
     },{
         path: '/onstore',

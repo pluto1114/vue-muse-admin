@@ -5,7 +5,7 @@ import {api} from './api'
 import _ from 'lodash'
 
 var querystring = require('querystring');
-var remote=true;
+var remote=false;
 
 Vue.use(VueResource)
 Vue.http.options.emulateJSON = true;
