@@ -32,6 +32,13 @@ export default {
     fresh(){
       myChart = echarts.init(this.$el,this.myTheme);
       myChart.setOption(this.option)
+      
+      myChart.on("click",this.handleClick)
+      
+    },
+    handleClick(params){
+      console.log(params)
+      this.$emit('chartClick',params);
     }
   }
 }

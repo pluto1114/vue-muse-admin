@@ -1,10 +1,14 @@
 <template>
-  <div class="">
+  <div class="storegoods">
+    <mu-flexbox>
+      <mu-flexbox-item class="flex-demo">
+        <Chart width="100%" height="650px" :option="optionMap" theme='infographic' @chartClick="handleMapClick"></Chart>
+      </mu-flexbox-item>
+      <Chart width="500px" height="650px" :option="option2"></Chart>
+    </mu-flexbox>  
     
-    <mu-sub-header>阳光</mu-sub-header>
-    <mu-content-block>
-    <Chart width="100%" height="650px" :option="optionMap" theme='infographic'></Chart>
-    </mu-content-block> 
+    
+     
     
 
   </div>
@@ -18,7 +22,24 @@ export default {
   name: 'storegoods',
   data () {
     return {
-        optionMap:{}
+        optionMap:{},
+        option2:{
+            title: { text: '饼图示例' },
+            series : [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    radius: ['55%','75%'],
+                    data:[
+                        {value:400, name:'搜索引擎'},
+                        {value:335, name:'直接访问'},
+                        {value:310, name:'邮件营销'},
+                        {value:274, name:'联盟广告'},
+                        {value:235, name:'视频广告'}
+                    ]
+                }
+            ]
+        }
     }
   },
   computed:mapState(['moduleA']),
@@ -50,7 +71,7 @@ export default {
             toolbox: {
                 show: true,
                 orient: 'vertical',
-                left: 'right',
+                left: 'left',
                 top: 'center',
                 feature: {
                     dataView: {readOnly: false},
@@ -78,14 +99,30 @@ export default {
                 }
             ]
         };
+
+        this.option2={
+            title: { text: '地区占比' },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            series : [
+                {
+                    name: '占比情况',
+                    type: 'pie',
+                    // radius: ['55%','75%'],
+                    data:resp.body.itemMap.curValues
+                }
+            ]
+        }
     });
     // search();
     
     
   },
   methods:{
-  	handleHover(){
-  		console.log("hover")
+  	handleMapClick(params){
+  		console.log("hover",params)
   	},
     randomData() {
         return Math.round(Math.random()*1000);
@@ -101,7 +138,7 @@ export default {
 <style lang="less" scoped>
 
 .storegoods{
-	
+	padding-top: 1.8em;
 }
 
 </style>
