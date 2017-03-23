@@ -9,7 +9,10 @@
     
     
      
-    
+    <div class="row">
+        
+        <mu-checkbox name="group" v-for="x of types" :nativeValue="x.code" v-model="types" :label="x.name" class="type-checkbox"/>      
+    </div>
 
   </div>
 </template>
@@ -23,29 +26,14 @@ export default {
   data () {
     return {
         optionMap:{},
-        option2:{
-            title: { text: '饼图示例' },
-            series : [
-                {
-                    name: '访问来源',
-                    type: 'pie',
-                    radius: ['55%','75%'],
-                    data:[
-                        {value:400, name:'搜索引擎'},
-                        {value:335, name:'直接访问'},
-                        {value:310, name:'邮件营销'},
-                        {value:274, name:'联盟广告'},
-                        {value:235, name:'视频广告'}
-                    ]
-                }
-            ]
-        }
+        option2:{},
+        types:[]
     }
   },
   computed:mapState(['moduleA']),
   mounted(){
     console.log(this.moduleA.mm)
-    this.$store.dispatch("storeGoods_map").then((resp)=>{
+    this.$store.dispatch("storeGoodsChart_map").then((resp)=>{
         this.optionMap = {
             title: {
                 text: resp.message,
@@ -116,7 +104,11 @@ export default {
             ]
         }
     });
-    // search();
+    
+    this.$store.dispatch("storeGoodsChart_goodstype").then((resp)=>{
+        this.types=resp.body.items;
+
+    });
     
     
   },
@@ -140,5 +132,11 @@ export default {
 .storegoods{
 	padding-top: 1.8em;
 }
-
+.row{
+    margin-top:4em;
+}
+.type-checkbox{
+    margin:1em;
+    
+}
 </style>
