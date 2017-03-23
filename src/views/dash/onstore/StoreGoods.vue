@@ -10,10 +10,14 @@
     
      
     <div class="row">
-        
-        <mu-checkbox name="group" v-for="x of types" :nativeValue="x.code" v-model="types" :label="x.name" class="type-checkbox"/>      
+        <div class="col-sm-1">包含类型</div>
+        <div class="col-sm-11">
+          
+            <mu-checkbox name="group" v-for="x of types" :nativeValue="x.code" :key="x.code" v-model="selTypes" :label="x.name" class="type-checkbox" @change="handleChange"/> 
+        </div>
+            
     </div>
-
+    
   </div>
 </template>
 
@@ -27,7 +31,8 @@ export default {
     return {
         optionMap:{},
         option2:{},
-        types:[]
+        types:[],
+        selTypes:[]
     }
   },
   computed:mapState(['moduleA']),
@@ -107,7 +112,9 @@ export default {
     
     this.$store.dispatch("storeGoodsChart_goodstype").then((resp)=>{
         this.types=resp.body.items;
-
+        this.types.forEach((item)=>{
+            this.selTypes.push(item.code)
+        })
     });
     
     
@@ -116,6 +123,9 @@ export default {
   	handleMapClick(params){
   		console.log("hover",params)
   	},
+    handleChange(){
+        console.log(this.selTypes)
+    },
     randomData() {
         return Math.round(Math.random()*1000);
     }
@@ -130,13 +140,13 @@ export default {
 <style lang="less" scoped>
 
 .storegoods{
-	padding-top: 1.8em;
+    padding: 1.8em;
+    margin-right: 2em;
 }
 .row{
-    margin-top:4em;
+    margin-top: 1.5em;  
 }
 .type-checkbox{
-    margin:1em;
-    
+    margin-right: 1em;   
 }
 </style>
