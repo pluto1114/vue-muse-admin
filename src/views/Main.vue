@@ -40,11 +40,10 @@ export default {
     window.addEventListener('hashchange', () => {
       this.setTitle()
     })
-    this.$on("close",()=>{
-      this.open=false;
-    })
-    this.$on("menu-change",()=>{
-
+    
+    this.$root.$on("menu-change",(hash)=>{
+      console.log('hash')
+      window.location.hash = hash
     })
     
   },

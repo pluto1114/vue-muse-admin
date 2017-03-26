@@ -2,24 +2,31 @@
   <div class="storegoods">
     <mu-flexbox>
       <mu-flexbox-item class="flex-demo">
-        <Chart width="100%" height="650px" :option="optionMap" theme='infographic' @chartClick="handleMapClick"></Chart>
+        <Chart width="100%" height="600px" :option="optionMap" theme='infographic' @chartClick="handleMapClick" loading></Chart>
       </mu-flexbox-item>
-      <Chart width="500px" height="650px" :option="option2"></Chart>
+      <Chart width="600px" height="600px" :option="option2" theme='infographic'></Chart>
     </mu-flexbox>  
     
     
-     
-    <div class="row">
+    <transition  name="fade"  mode="out-in">
+    <div v-if="types.length > 0" class="row">
         <div class="col-sm-1">包含类型</div>
-        <div class="col-sm-11">
-          
+        <div class="col-sm-11">         
             <mu-checkbox name="group" v-for="x of types" :nativeValue="x.code" :key="x.code" v-model="selTypes" :label="x.name" class="type-checkbox" @change="handleChange"/> 
+        </div>    
+    </div> 
+    </transition>
+    <transition name="fade"  mode="out-in">
+    <div v-if="types.length > 0" class="row">
+        <div class="col-sm-1">所选地区</div>   
+        <div class="col-sm-11">         
+            <mu-radio v-for="x of curValues" :label="x.name" name="comp_id" :nativeValue="x.id" :key="x.id" v-model="comp_id" class="demo-radio"/>
         </div>
-   
     </div>
-    
+    </transition>
     <div class="row">
-        <table class="table table-striped table-hover">
+        <transition  name="fade"  mode="out-in">
+        <table v-if="items.length > 0" class="table table-striped table-hover">
             <thead>
                 <tr>
                     <th>#</th>
@@ -48,6 +55,7 @@
                 </tr>
             </tbody>
         </table>
+        </transition>
     </div>
   </div>
 </template>
@@ -66,10 +74,14 @@ export default {
         types:[],
         selTypes:[],
         items:[],
-        comp_id:1
+        curValues:[],
+        comp_id:'1'
     }
   },
- 
+  watch:{
+    'comp_id':'showItems',
+    'selTypes':'showItems'
+  },
   mounted(){
     console.log(this.$store.state.moduleA.mm)
     this.fresh();
@@ -86,9 +98,7 @@ export default {
   methods:{
   	handleMapClick(params){
   		if (params.componentType === 'series') {
-            this.comp_id=params.data.id;
-            this.showItems();
-                  
+            this.comp_id=params.data.id;    
         }
   	},
     handleChange(value){
@@ -99,6 +109,7 @@ export default {
     },
     fresh(){
         this.$store.dispatch("storeGoodsChart_map",{selTypes:this.selTypes}).then((resp)=>{
+            this.curValues=resp.body.itemMap.curValues
             this.optionMap = {
                 title: {
                     text: resp.body.itemMap.title,
@@ -147,26 +158,10 @@ export default {
                                 show: true
                             }
                         },
-                        data:resp.body.itemMap.curValues
+                        data:this.curValues
                     }
                 ]
             };
-
-            // this.option2={
-            //     title: { text: '地区占比' },
-            //     tooltip : {
-            //         trigger: 'item',
-            //         formatter: "{a} <br/>{b} : {c} ({d}%)"
-            //     },
-            //     series : [
-            //         {
-            //             name: '占比情况',
-            //             type: 'pie',
-            //             // radius: ['55%','75%'],
-            //             data:resp.body.itemMap.curValues
-            //         }
-            //     ]
-            // }
 
             this.option2={
                 title: { text: '地区' },
@@ -175,17 +170,18 @@ export default {
                     
                 },
                 yAxis: {
-                  data: _.map(resp.body.itemMap.curValues,"name")
+                  data: _.map(this.curValues,"name")
                 },
                 series: [{
                     name: '金额',
                     type: 'bar',
-                    data: _.map(resp.body.itemMap.curValues,"value")
+                    data: _.map(this.curValues,"value")
                 }]
             }
         });
     },
     showItems(){
+        this.fresh();
         this.$store.dispatch("storeGoodsChart_items",{selTypes:this.selTypes,comp_id:this.comp_id}).then((resp)=>{
             this.items=resp.body.items;
         });

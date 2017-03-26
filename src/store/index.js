@@ -20,13 +20,8 @@ const moduleA = {
 
 const onstore = {
   state: {
-    selTypes:[],
-    map_comp_id:1
   },
   mutations: {
-    selTypes(state,payload) {
-        state.selTypes = payload.selTypes;
-    }
   },
   actions: {
     storeGoodsChart_map(context,payload){
@@ -40,6 +35,22 @@ const onstore = {
     storeGoodsChart_items(context,payload){
       let mock={};
       return remote?api('/api/storeGoodsChart/items',{params:payload}):Promise.resolve(mock);
+    },
+    buyGoodsChart_year(context,payload){
+      let mock={}
+      return remote?api('/api/buyGoodsChart/year',{params:payload}):Promise.resolve(mock);
+    },
+    buyGoodsChart_month(context,payload){
+      let mock={}
+      return remote?api('/api/buyGoodsChart/month',{params:payload}):Promise.resolve(mock);
+    },
+    buyGoodsChart_day(context,payload){
+      let mock={}
+      return remote?api('/api/buyGoodsChart/day',{params:payload}):Promise.resolve(mock);
+    },
+    buyGoodsChart_goodstype(context,payload){
+      let mock={}
+      return remote?api('/api/buyGoodsChart/goodstype',{params:payload}):Promise.resolve(mock);
     }
   }
 }

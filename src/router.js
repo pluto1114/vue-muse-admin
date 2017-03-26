@@ -7,6 +7,7 @@ import NotFound from '@/views/404.vue'
 
 import Dashboard from '@/views/dash/Dashboard.vue'
 import StoreGoods from '@/views/dash/onstore/StoreGoods.vue'
+import BuyGoods from '@/views/dash/onstore/BuyGoods.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -37,6 +38,12 @@ export default new Router({
                 component: StoreGoods,
                 name: 'storeGoods',
                 description: '当前库存统计'
+            },
+            {
+                path: 'buyGoods',
+                component: BuyGoods,
+                name: 'buyGoods',
+                description: '采购物资统计'
             }
         ]
     },

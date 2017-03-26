@@ -11,9 +11,8 @@
         <mu-list-item :title="'在库物资分析'" toggleNested>
           <mu-icon value="home" slot="left"/>
           <mu-list-item slot="nested" value="#/onstore/storeGoods" :title="'当前库存统计'"/>
-          <mu-list-item slot="nested" value="#/colors" :title="'采购订单分析'"/>
-          <mu-list-item slot="nested" value="#/colors" :title="'入库物资分析'"/>
-          <mu-list-item slot="nested" value="#/colors" :title="'出库物资分析'"/>
+          <mu-list-item slot="nested" value="#/onstore/buyGoods" :title="'采购物资统计'"/>
+          <mu-list-item slot="nested" value="#/colors" :title="'库存变化分析'"/>
           <mu-list-item slot="nested" value="#/colors" :title="'物资使用分析'"/>
           <mu-list-item slot="nested" value="#/colors" :title="'物资类型分析'"/>
           <mu-list-item slot="nested" value="#/colors" :title="'地域物资比较'"/>
@@ -51,16 +50,17 @@ export default {
   },
   data(){
     return {
-      menuVal:0
+      menuVal:0,
+
     } 
   },
   methods: {
     handleMenuChange(val){
       this.menuVal = val
       
-      window.location.hash = this.menuVal
       
-      this.$emit('menu-change', val)
+      
+      this.$root.$emit('menu-change', val)
     }
   }
 }
