@@ -9,7 +9,7 @@
       
       <div class="example-content" :class="{'nav-hide': !open}">
         <transition name="fade"  mode="out-in">
-          <router-view></router-view>
+          <router-view class="main-content"></router-view>
         </transition>
       </div>
     </div>
@@ -158,4 +158,7 @@ function isDesktop () {
   opacity: 0;
 }
 
+.main-content{
+  padding: 1.8em;
+}
 </style>

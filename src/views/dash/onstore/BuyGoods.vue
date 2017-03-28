@@ -12,7 +12,41 @@
         <Chart width="100%" height="500px" :option="option" theme='infographic' @chartClick="handleMonthClick"></Chart>
       </mu-flexbox-item>
       <Chart width="500px" height="500px" :option="optionType"></Chart>
-    </mu-flexbox>   
+    </mu-flexbox> 
+    <h4>(点击进入时段详情)</h4> 
+    <div class="row">
+        <transition  name="fade"  mode="out-in">
+        <table v-if="items.length > 0" class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    
+                    <th>物资编号</th>
+                    <th>物资名称</th>
+                    <th>供应商</th>
+                	<th>采购单号</th>
+                 
+ 
+                    <th>单位</th>
+                    <th>采购数量</th>                  
+                    <th>单价</th>  
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(x,index) of items">
+                    <td>{{index+1}}</td>
+                    <td>{{x.goodstype_code}}</td>
+                    <td>{{x.goodstype_name}}</td>
+                    <td>{{x.factory}}</td>
+                    <td>{{x.buyorder_code}}</td>
+                    <td>{{x.unit}}</td>
+                    <td>{{x.buy_count}}</td>
+                    <td>{{x.no_tax_price}}</td>
+                </tr>
+            </tbody>
+        </table>
+        </transition>
+    </div> 
   </div>
 </template>
 
@@ -50,7 +84,8 @@ export default {
     	selTime:"2016",
     	option:{},
     	optionType:{},
-    	types:[]
+    	types:[],
+    	items:[]
     }
   },
   watch:{
@@ -61,7 +96,7 @@ export default {
   },
   methods:{
   	handleChange(){
-
+  		this.items=[];
   	},
   	fresh(){
 	  	this.$store.dispatch("buyGoodsChart_year",{year:this.selTime}).then((resp)=>{
@@ -184,6 +219,10 @@ export default {
 			        ]
 				};
 		    });
+
+		    this.$store.dispatch("buyGoodsChart_items",{day:params.name}).then((resp)=>{
+	            this.items=resp.body.items;
+	        });
 		}
   	}
   },
@@ -197,10 +236,17 @@ export default {
 <style lang="less" scoped>
 .buy-goods{
 	.years{
-		margin: 1em 0.4em;
+		margin: 0 0.4em 1.6em;
 	}
 	.year-item{
 		width:8em;
 	}
+}
+.table{
+    font-size:1.15em;
+    td{
+        padding:0.9em 0.3em;
+        max-width:8em;
+    }
 }
 </style>

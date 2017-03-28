@@ -200,8 +200,7 @@ export default {
 <style lang="less" scoped>
 
 .storegoods{
-    padding: 1.8em;
-    margin-right: 2em;
+    
 }
 .row{
     margin-top: 1.5em;  
